@@ -1,4 +1,4 @@
-# gabriel-imr-openai-ros
+# gabriel-rmi-openai-ros
 Utilização do pacote OpenAI ROS para aprendizado por reforço utilizando robôs em Gazebo
 
 ## Ambiente utilizado:
