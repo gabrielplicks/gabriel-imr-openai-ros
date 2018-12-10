@@ -1,5 +1,7 @@
 # gabriel-rmi-openai-ros
-Utilização do pacote OpenAI ROS para aprendizado por reforço utilizando robôs em Gazebo
+Utilização do pacote OpenAI ROS para aprendizado por reforço utilizando robôs em Gazebo.
+
+* Na pasta "docs" consta o artigo e a apresentação do trabalho.
 
 ## Ambiente utilizado:
 - Ubuntu 16.04
