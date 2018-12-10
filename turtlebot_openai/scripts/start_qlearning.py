@@ -5,12 +5,14 @@ import numpy
 import time
 import qlearn
 from gym import wrappers
-# ROS packages required
+
+# ROS related
 import rospy
 import rospkg
-# import our training environment
-# import my_turtlebot2_maze
-from openai_ros.task_envs.turtlebot2 import turtlebot2_wall
+
+# Import the training environment
+import my_turtlebot2_maze
+# from openai_ros.task_envs.turtlebot2 import turtlebot2_wall
 
 
 if __name__ == '__main__':
@@ -18,7 +20,8 @@ if __name__ == '__main__':
     rospy.init_node('turtlebot_qlearn', anonymous=True, log_level=rospy.WARN)
 
     # Create the Gym environment
-    env = gym.make('MyTurtleBot2Wall-v0')
+    env = gym.make('MyTurtleBot2Maze-v0')
+    # env = gym.make('MyTurtleBot2Wall-v0')
     rospy.loginfo("Gym environment done")
 
     # Set the logging system
@@ -28,11 +31,7 @@ if __name__ == '__main__':
     env = wrappers.Monitor(env, outdir, force=True)
     rospy.loginfo("Monitor Wrapper started")
 
-    last_time_steps = numpy.ndarray(0)
-
-    # Loads parameters from the ROS param server
-    # Parameters are stored in a yaml file inside the config directory
-    # They are loaded at runtime by the launch file
+    # Load parameters from the yaml file
     Alpha = rospy.get_param("/turtlebot2/alpha")
     Epsilon = rospy.get_param("/turtlebot2/epsilon")
     Gamma = rospy.get_param("/turtlebot2/gamma")
@@ -42,9 +41,8 @@ if __name__ == '__main__':
 
     running_step = rospy.get_param("/turtlebot2/running_step")
 
-    # Initialises the algorithm that we are going to use for learning
-    qlearn = qlearn.QLearn(actions=range(env.action_space.n),
-                           alpha=Alpha, gamma=Gamma, epsilon=Epsilon)
+    # Initialize Q-Learning
+    qlearn = qlearn.QLearn(actions=range(env.action_space.n), alpha=Alpha, gamma=Gamma, epsilon=Epsilon)
     initial_epsilon = qlearn.epsilon
 
     start_time = time.time()
@@ -95,7 +93,6 @@ if __name__ == '__main__':
                 state = nextState
             else:
                 rospy.logwarn("DONE")
-                last_time_steps = numpy.append(last_time_steps, [int(i + 1)])
                 break
 
             rospy.logwarn("### END Step => " + str(i))
@@ -110,19 +107,12 @@ if __name__ == '__main__':
 
     # Finished training
     minutos, segundos = divmod(int(time.time() - start_time), 60)
-    horas, minutos = divmod(m, 60)
+    horas, minutos = divmod(minutos, 60)
 
     rospy.logerr(("Episodes: " + str(x + 1) + " - [Epsilon: " + str(round(qlearn.epsilon, 2)) + " | Highest reward: " + str(highest_reward) + 
         "] Time: %d:%02d:%02d" % (horas, minutos, segundos)))
 
     rospy.loginfo(("\n|" + str(nepisodes) + "|" + str(qlearn.alpha) + "|" + str(qlearn.gamma) + "|" + str(
         initial_epsilon) + "*" + str(epsilon_discount) + "|" + str(highest_reward) + "| PICTURE |"))
-
-    l = last_time_steps.tolist()
-    l.sort()
-
-    # print("Parameters: a="+str)
-    rospy.loginfo("Overall score: {:0.2f}".format(last_time_steps.mean()))
-    rospy.loginfo("Best 100 score: {:0.2f}".format(reduce(lambda x, y: x + y, l[-100:]) / len(l[-100:])))
 
     env.close()
