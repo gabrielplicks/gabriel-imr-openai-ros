@@ -47,3 +47,6 @@ Todas as dependências já estão incluídas neste repositório, bastando soment
    - gzclient
 
 * Estes comandos devem ser executados em terminais separados
+
+Gabriel Paludo Licks
+Robótica Móvel Inteligente 2018/2
