@@ -3,8 +3,8 @@ Utilização do pacote OpenAI ROS para aprendizado por reforço utilizando robô
 
 ## Ambiente utilizado:
 - Ubuntu 16.04
-- ROS Indigo
-- Gazebo Simulator
+- ROS Kinetic
+- Gazebo 7.0
 
 ## Dependências:
 - OpenAI_ROS package (https://bitbucket.org/theconstructcore/openai_ros.git)
