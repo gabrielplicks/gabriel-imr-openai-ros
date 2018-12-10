@@ -28,16 +28,22 @@ Todas as dependências já estão incluídas neste repositório, bastando soment
 
 ## Para executar treinamento com WAM-V boat:
 
-1. Iniciar a simulação: roslaunch robotx_gazebo sandisland.launch
-2. Inicie o treinamento: roslaunch barco_openai start_training.launch 
-3. Abra a GUI do Gazebo caso queira acompanahr a simulação: gzclient
+1. Iniciar a simulação:
+   - roslaunch robotx_gazebo sandisland.launch
+2. Inicie o treinamento:
+   - roslaunch barco_openai start_training.launch 
+3. Abra a GUI do Gazebo caso queira acompanahr a simulação:
+   - gzclient
 
 * Estes comandos devem ser executados em terminais separados
 
 ## Para executar treinamento com Turtlebot 2:
 
-1. Iniciar a simulação: roslaunch gym_construct main.launch
-2. Inicie o treinamento: roslaunch turtlebot_openai start_training.launch 
-3. Abra a GUI do Gazebo caso queira acompanahr a simulação: gzclient
+1. Iniciar a simulação:
+   - roslaunch gym_construct main.launch
+2. Inicie o treinamento:
+   - roslaunch turtlebot_openai start_training.launch 
+3. Abra a GUI do Gazebo caso queira acompanahr a simulação:
+   - gzclient
 
 * Estes comandos devem ser executados em terminais separados
